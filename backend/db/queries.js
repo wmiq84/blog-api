@@ -21,18 +21,18 @@ async function main() {
 			password: hashedPassword,
 			posts: {
 				create: {
-                    email: '123@gmail.com',
-                    title: 'Test',
-                    content: 'Lorem ipsum dolor and so on.',
+					email: '123@gmail.com',
+					title: 'Test',
+					content: 'Lorem ipsum dolor and so on.',
 					comments: {
 						create: [
-                            {
-                                content: 'Wow so cool!!!',
-                            },
-                            {
-                                content: 'Wow Wow Wow x100!!!',
-                            },
-                        ],
+							{
+								content: 'Wow so cool!!!',
+							},
+							{
+								content: 'Wow Wow Wow x100!!!',
+							},
+						],
 					},
 				},
 			},
@@ -62,17 +62,47 @@ main()
 	});
 
 async function findAllPosts() {
-    const posts = await prisma.post.findMany({
+	const posts = await prisma.post.findMany({
 		where: {
-			userId: 1, 
+			userId: 1,
 		},
 		include: {
-			comments: true, 
+			comments: true,
 		},
 	});
-    return posts;
+	return posts;
+}
+
+async function postMessage({email, title, content}) {
+	const posts = await prisma.post.findMany({
+		where: {
+			userId: 1,
+		},
+		include: {
+			comments: true,
+		},
+	});
+
+	const newPost = {
+		email: email,
+		title: title,
+		content: content,
+	};
+
+	// const savedPost = await prisma.post.create({
+	// 	data: newPost,
+	// });
+
+	// const updatedPosts = [...posts, newPost];
+
+	// console.log(updatedPosts);
+	// return updatedPosts;
+
+    console.log(newPost);
+    
 }
 
 module.exports = {
-    findAllPosts
-}
+	findAllPosts,
+    postMessage,
+};

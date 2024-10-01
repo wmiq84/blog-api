@@ -2,28 +2,22 @@
 
 const db = require('../db/queries');
 
-async function sayHello(req, res) {
+async function createBoard(req, res) {
 	const posts = await db.findAllPosts();
-	console.log(posts);
-	res.render('index', { user: req.user, posts: posts });    
+	res.render('index', { user: req.user, posts: posts });
+}
+
+async function postMessage(req, res) {
+    const { title, content } = req.body;
+	await db.postMessage({email: '123@gmail.com', title: title, content: content});
+}
+
+async function createPostForm(req, res) {
+	res.render('post-form');
 }
 
 module.exports = {
-    sayHello,
+	createBoard,
+	postMessage,
+    createPostForm
 };
-
-// const posts = [
-//     {
-//         name: 'Post 1',
-//         comments: [
-//             { name: 'Comment 1' },
-//             { name: 'Comment 2' }
-//         ]
-//     },
-//     {
-//         name: 'Post 2',
-//         comments: [
-//             { name: 'Comment 3' }
-//         ]
-//     }
-// ];	
