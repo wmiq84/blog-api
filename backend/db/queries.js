@@ -48,7 +48,7 @@ async function main() {
 			},
 		},
 	});
-	console.dir(allUsers, { depth: null });
+	// console.dir(allUsers, { depth: null });
 }
 
 main()
@@ -73,36 +73,32 @@ async function findAllPosts() {
 	return posts;
 }
 
-async function postMessage({email, title, content}) {
+async function postMessage({ email, title, content, userId }) {
 	const posts = await prisma.post.findMany({
 		where: {
-			userId: 1,
+			userId: userId,
 		},
 		include: {
 			comments: true,
 		},
 	});
 
+	const maxId = posts.reduce((max, post) => (post.id > max ? post.id : max), 0);
+
 	const newPost = {
+		id: maxId + 1,
 		email: email,
 		title: title,
 		content: content,
+		userId: userId,
 	};
 
-	// const savedPost = await prisma.post.create({
-	// 	data: newPost,
-	// });
-
-	// const updatedPosts = [...posts, newPost];
-
-	// console.log(updatedPosts);
-	// return updatedPosts;
-
-    console.log(newPost);
-    
+	await prisma.post.create({
+		data: newPost,
+	});
 }
 
 module.exports = {
 	findAllPosts,
-    postMessage,
+	postMessage,
 };

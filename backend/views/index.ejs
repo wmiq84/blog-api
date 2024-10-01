@@ -20,6 +20,7 @@
 			<% for (let post of posts) { %>
 				<li>
 					<h3><%= post.title %></h3>
+					<p><%= post.content %></p>
 					<ul>
 						<% if (post.comments) { %>
 							<% for (let comment of post.comments) { %>

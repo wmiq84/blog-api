@@ -7,17 +7,25 @@ async function createBoard(req, res) {
 	res.render('index', { user: req.user, posts: posts });
 }
 
-async function postMessage(req, res) {
-    const { title, content } = req.body;
-	await db.postMessage({email: '123@gmail.com', title: title, content: content});
-}
-
 async function createPostForm(req, res) {
 	res.render('post-form');
 }
 
+async function postMessage(req, res) {
+	const { title, content } = req.body;
+	const userId = req.user.id;
+	const email = req.user.email;
+	await db.postMessage({
+		email: email,
+		title: title,
+		content: content,
+		userId: userId,
+	});
+	res.redirect('/');
+}
+
 module.exports = {
 	createBoard,
+	createPostForm,
 	postMessage,
-    createPostForm
 };
