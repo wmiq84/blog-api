@@ -14,6 +14,8 @@ const { PrismaClient } = require('@prisma/client');
 const multer  = require('multer')
 const upload = multer({ dest: 'uploads/' })
 
+const cors = require('cors');
+
 app.use(
 	session({
 		cookie: {
@@ -29,6 +31,15 @@ app.use(
 		}),
 	})
 );
+
+app.use(cors());
+
+app.get('/', (req, res) => {
+  res.json([
+    { title: 'Post 1', content: 'Content of post 1' },
+    { title: 'Post 2', content: 'Content of post 2' },
+  ]);
+});
 
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
