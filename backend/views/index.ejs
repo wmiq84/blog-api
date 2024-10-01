@@ -17,7 +17,20 @@
 			<button>Log In</button>
 		</form>
         <ul>
-
-        </ul>
+			<% for (let post of posts) { %>
+				<li>
+					<h3><%= post.title %></h3>
+					<ul>
+						<% if (post.comments) { %>
+							<% for (let comment of post.comments) { %>
+								<li>
+									<p><%= comment.content %></p>
+								</li>
+							<% } %>
+						<% } %>
+					</ul>
+				</li>
+			<%}%>
+		</ul>
 	</body>
 </html>

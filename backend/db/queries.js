@@ -60,3 +60,19 @@ main()
 		await prisma.$disconnect();
 		process.exit(1);
 	});
+
+async function findAllPosts() {
+    const posts = await prisma.post.findMany({
+		where: {
+			userId: 1, 
+		},
+		include: {
+			comments: true, 
+		},
+	});
+    return posts;
+}
+
+module.exports = {
+    findAllPosts
+}
