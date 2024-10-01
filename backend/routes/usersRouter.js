@@ -6,8 +6,8 @@ const passport = require('../auth');
 
 usersRouter.get('/', usersController.createBoard);
 
-usersRouter.get('/post', usersController.createPostForm);
-usersRouter.post('/post', usersController.postMessage);
+usersRouter.get('/posts', usersController.createPostForm);
+usersRouter.post('/posts', usersController.postMessage);
 
 usersRouter.post(
 	'/log-in',
