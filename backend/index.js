@@ -1,10 +1,11 @@
 // app.js
-const path = require('node:path'); // for ejs
+const path = require('node:path'); 
+const bodyParser = require('body-parser');
 
 const express = require('express');
 const app = express();
 const usersRouter = require('./routes/usersRouter');
-const passport = require('./auth'); // Adjust the path as necessary
+const passport = require('./auth'); 
 
 const session = require('express-session');
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
@@ -34,13 +35,20 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(passport.session());
 
+// added for jwt
+
+app.use(bodyParser.json());
+app.use(express.json());
+
 app.use('/', usersRouter);
+app.use('/users', usersRouter);
+
 
 // makes css compatible
 const assetsPath = path.join(__dirname, 'public');
 app.use(express.static(assetsPath));
 
-app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Express app listening on port ${PORT}!`));
+
