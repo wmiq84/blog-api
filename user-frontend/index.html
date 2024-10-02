@@ -3,11 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Frontend</title>
+    <title>Posts</title>
 </head>
 <body>
-    <h1>Test</h1>
-    <div id="posts-container"></div>
+    <form action="/log-in" method="POST">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="text" />
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" />
+        <button>Log In</button>
+    </form>
+    <ul id="posts-container">
+        <!-- Posts will be dynamically inserted here -->
+    </ul>
     <script src="app.js"></script>
 </body>
 </html>

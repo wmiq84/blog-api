@@ -6,7 +6,6 @@ const passport = require('../auth');
 const jwt = require('jsonwebtoken');
 
 usersRouter.get('/', usersController.createBoard);
-
 usersRouter.get('/posts', usersController.createPostForm);
 usersRouter.post('/posts', usersController.postMessage);
 
